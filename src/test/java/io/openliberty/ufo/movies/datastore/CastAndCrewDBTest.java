@@ -22,7 +22,7 @@ public class CastAndCrewDBTest {
     }
 
     @Test
-    public void testLoadInitialData() {
+    public void testLoadInitialData() throws Exception {
         Person p = db.getDirectorByName("Roland Emmerich");
         assertEquals("Roland Emmerich", p.getName());
         assertEquals(new Location("Stuttgart", "Baden-Wurttemberg", "Germany"), p.getBirthplace());
@@ -33,7 +33,7 @@ public class CastAndCrewDBTest {
     }
 
     @Test
-    public void testGetActorsFrom() {
+    public void testGetActorsFrom() throws Exception {
         List<Person> actors = db.getActorsFrom(new Location(null, "Pennsylvania", "USA"));
         assertEquals(2, actors.size());
         Person actor = actors.get(0);

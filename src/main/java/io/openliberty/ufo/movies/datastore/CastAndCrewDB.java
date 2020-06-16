@@ -50,20 +50,38 @@ public class CastAndCrewDB {
         return getPersons(directors, d -> d.getBirthplace().matches(birthplace));
     }
 
-    public Person getDirectorByName(String name) {
-        List<Person> list = getPersons(directors, d -> d.getName().equals(name));
-        if (list == null || list.isEmpty()) {
-            return null;
-        }
-        return list.get(0);
+    public Person getDirectorByName(String name) throws UnknownPersonException {
+        return getSinglePerson(directors, d -> d.getName().equals(name));
     }
 
-    public Person getActorByName(String name) {
-        List<Person> list = getPersons(actors, a -> a.getName().equals(name));
-        if (list == null || list.isEmpty()) {
-            return null;
+    public Person getActorByName(String name) throws UnknownPersonException {
+        return getSinglePerson(actors, a -> a.getName().equals(name));
+    }
+
+    public Person getDirectorById(long id) throws UnknownPersonException {
+        return getSinglePerson(directors, d -> d.getId() == id);
+    }
+
+    public Person getActorById(long id) throws UnknownPersonException {
+            return getSinglePerson(actors, a -> a.getId() == id);
+    }
+
+    public List<Person> getDirectorByBirthplace(Location birthplace) throws UnknownPersonException {
+        return getPersons(directors, d -> d.getBirthplace().matches(birthplace));
+    }
+
+    public List<Person> getActorByBirthplace(Location birthplace) throws UnknownPersonException {
+            return getPersons(actors, a -> a.getBirthplace().matches(birthplace));
+    }
+
+    private Person getSinglePerson(List<Person> list, Predicate<? super Person> predicate) 
+        throws UnknownPersonException {
+
+        List<Person> filteredList = getPersons(list, predicate);
+        if (filteredList == null || filteredList.isEmpty()) {
+            throw new UnknownPersonException();
         }
-        return list.get(0);
+        return filteredList.get(0);
     }
 
     private List<Person> getPersons(List<Person> list, Predicate<? super Person> predicate) {
@@ -77,6 +95,8 @@ public class CastAndCrewDB {
         directors.add(new Person(generateID(), "Julien Temple",
             new Location("London", "England", "UK")));
         directors.add(new Person(generateID(), "Barry Sonnenfeld",
+            new Location("New York City", "New York", "USA")));
+        directors.add(new Person(generateID(), "Mel Brooks",
             new Location("New York City", "New York", "USA")));
         actors.add(new Person(generateID(), "Will Smith",
             new Location("Philadelphia", "Pennsylvania", "USA")));
