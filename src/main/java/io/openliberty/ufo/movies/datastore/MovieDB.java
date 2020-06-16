@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
@@ -18,13 +19,19 @@ import io.openliberty.ufo.movies.entity.Movie;
 
 @ApplicationScoped
 public class MovieDB {
+    private static final Logger LOG = Logger.getLogger(MovieDB.class.getName());
+
     @Inject
     CastAndCrewDB castAndCrewDB;
 
     private final Map<Long, Movie> allMovies = new HashMap<>();
 
-    public Movie getMovieById(long id) {
-        return allMovies.get(id);
+    public Movie getMovieById(long id) throws UnknownMovieException {
+        Movie m = allMovies.get(id);
+        if (m == null) {
+            throw new UnknownMovieException("Unknown movie ID: " + id);
+        }
+        return m;
     }
 
     public Collection<Movie> allMovies() {
@@ -57,6 +64,7 @@ public class MovieDB {
 
     @PostConstruct
     void loadInitialData() {
+        try {
         Movie m = new Movie(generateID(), "Independence Day");
         m.setReleaseDate(LocalDate.of(1996, 7, 3));
         m.setDirector(castAndCrewDB.getDirectorByName("Roland Emmerich"));
@@ -91,6 +99,8 @@ public class MovieDB {
                                   castAndCrewDB.getActorByName("Joan Rivers"),
                                   castAndCrewDB.getActorByName("Daphne Zuniga")));
         allMovies.put(m.getId(), m);
-
+        } catch (Exception ex) {
+            LOG.severe("Failed to initialize Movie database");
+        }
     }
 }
