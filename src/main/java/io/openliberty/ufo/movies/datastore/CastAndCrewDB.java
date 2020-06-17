@@ -66,14 +66,6 @@ public class CastAndCrewDB {
             return getSinglePerson(actors, a -> a.getId() == id);
     }
 
-    public List<Person> getDirectorByBirthplace(Location birthplace) throws UnknownPersonException {
-        return getPersons(directors, d -> d.getBirthplace().matches(birthplace));
-    }
-
-    public List<Person> getActorByBirthplace(Location birthplace) throws UnknownPersonException {
-            return getPersons(actors, a -> a.getBirthplace().matches(birthplace));
-    }
-
     private Person getSinglePerson(List<Person> list, Predicate<? super Person> predicate) 
         throws UnknownPersonException {
 
