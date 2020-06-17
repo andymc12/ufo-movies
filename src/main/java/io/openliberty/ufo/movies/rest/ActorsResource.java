@@ -50,10 +50,9 @@ public class ActorsResource {
     @Path("birthplace/{country}/{state}/{city}")
     public Collection<Person> getActorsByBirthplace(@PathParam("country") String country,
                                                     @PathParam("state") String state,
-                                                    @PathParam("city") String city)
-        throws UnknownPersonException {
-        return db.getActorByBirthplace(new Location("-".equals(city) ? null : city,
-                                                    "-".equals(state) ? null : state,
-                                                    "-".equals(country) ? null : country));
+                                                    @PathParam("city") String city) {
+        return db.getActorsFrom(new Location("-".equals(city) ? null : city,
+                                             "-".equals(state) ? null : state,
+                                             "-".equals(country) ? null : country));
     }
 }
