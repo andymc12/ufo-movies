@@ -5,7 +5,6 @@ import java.util.Collection;
 
 import javax.inject.Inject;
 
-import org.eclipse.microprofile.graphql.DefaultValue;
 import org.eclipse.microprofile.graphql.GraphQLApi;
 import org.eclipse.microprofile.graphql.GraphQLException;
 import org.eclipse.microprofile.graphql.Query;
@@ -15,7 +14,7 @@ import io.openliberty.ufo.movies.entity.Movie;
 
 @GraphQLApi
 public class MoviesApi {
-    
+
     @Inject
     MovieDB db;
 

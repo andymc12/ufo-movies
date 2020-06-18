@@ -18,7 +18,7 @@ import io.openliberty.ufo.movies.entity.Person;
 
 @GraphQLApi
 public class ActorsDirectorsApi {
-    
+
     @Inject
     CastAndCrewDB db;
 
