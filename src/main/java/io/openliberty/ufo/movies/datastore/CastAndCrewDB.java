@@ -41,7 +41,7 @@ public class CastAndCrewDB {
     }
 
     public Person addDirector(String name, Location birthplace) {
-        Person p = new Person(generateID(), name, birthplace)
+        Person p = new Person(generateID(), name, birthplace);
         directors.add(p);
         return p;
     }
