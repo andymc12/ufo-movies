@@ -50,8 +50,9 @@ public class MovieDB {
         return allMovies.values().stream().filter(predicate).collect(Collectors.toList());
     }
 
-    public void addMovie(Movie movie) {
+    public Movie addMovie(Movie movie) {
         allMovies.put(movie.getId(), movie);
+        return movie;
     }
 
     public Movie addMovie(String title) {
