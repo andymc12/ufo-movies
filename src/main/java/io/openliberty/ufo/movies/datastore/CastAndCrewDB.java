@@ -34,12 +34,16 @@ public class CastAndCrewDB {
         this.actors = actors;
     }
 
-    public void addActor(String name, Location birthplace) {
-        actors.add(new Person(generateID(), name, birthplace));
+    public Person addActor(String name, Location birthplace) {
+        Person p = new Person(generateID(), name, birthplace);
+        actors.add(p);
+        return p;
     }
 
-    public void addDirector(String name, Location birthplace) {
-        directors.add(new Person(generateID(), name, birthplace));
+    public Person addDirector(String name, Location birthplace) {
+        Person p = new Person(generateID(), name, birthplace)
+        directors.add(p);
+        return p;
     }
 
     public List<Person> getActorsFrom(Location birthplace) {
